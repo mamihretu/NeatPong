@@ -5,9 +5,9 @@ A neural network that can play pong by training a multiple permutations of itsel
 
 ## Instructions
 
-Simply download and run the Pong_with_neat.py file
+Simply download and run the .py file
 
 ## required modules
 
-neat module : pip install neat
-turtle module : pip install turtle 
+1: neat
+2: Turtle
