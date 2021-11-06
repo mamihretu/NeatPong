@@ -3,9 +3,9 @@
 
 import turtle
 import os
-import time
 import neat
 import numpy as np
+
 
 
 #create window and set parameters
@@ -15,6 +15,17 @@ wn.title("Pong")
 wn.bgcolor("black")
 wn.setup(width=800, height=600)
 wn.tracer(0)
+
+# get root canvas to properly close the window
+canvas = wn.getcanvas()  # or, equivalently: turtle.getcanvas()
+root = canvas.winfo_toplevel()
+
+def on_close():
+    global running
+    running = False
+
+
+
 
 #initialize generations 
 gen = 0
@@ -160,7 +171,7 @@ def fitness_func(genomes, config):
 
 
     #main game loop
-    while len(paddles) > 0:
+    while len(paddles) > 0 and running == True:
         
         
         # Move the ball
@@ -298,6 +309,11 @@ if __name__ == '__main__':
     # Determine path to configuration file. This path manipulation is
     # here so that the script will run successfully regardless of the
     # current working directory.
+
+
+
+    root.protocol("WM_DELETE_WINDOW", on_close)
+    running = True  
     local_dir = os.path.dirname(__file__)
     config_path = os.path.join(local_dir, 'config-feedforward.txt')
     runner(config_path)
